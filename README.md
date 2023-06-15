@@ -76,8 +76,8 @@ Agora, no Linux, rode o seguinte comando:
 
 Tudo pronto! Basta acessar o servidor agora:
 
-https://cloud.meudominio.com.br
-Usuário: admin
+https://cloud.meudominio.com.br<br>
+Usuário: admin<br>
 Senha: admin
 
 Isso é tudo!
