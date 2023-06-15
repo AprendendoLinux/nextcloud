@@ -1,0 +1,115 @@
+version: '2'
+
+networks:
+  nextcloud:
+
+services:
+  proxy:
+    container_name: proxy
+    hostname: proxy
+    networks:
+      - nextcloud
+    image: jc21/nginx-proxy-manager:latest
+    restart: always
+    volumes:
+      - /srv/proxy/data:/data
+      - /srv/proxy/letsencrypt:/etc/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:81"
+
+        ## Acesso: http://cloud.meudominio.com.br:8080
+        ## Usuario padrao: admin@example.com
+        ## Senha padrao: changeme
+
+        ##### Na interface grafica, apis adicionar o proxy host do nextcloud, inserir
+        ##### o conteudo abaixo na guia "Advanced", obviamente sem o "#" na frente
+        
+        # client_body_buffer_size 512k;
+        # proxy_read_timeout 86400s;
+        # client_max_body_size 0;
+        #
+        # location /.well-known/carddav {
+        # return 301 $scheme://$host/remote.php/dav;
+        # }
+        #
+        # location /.well-known/caldav {
+        # return 301 $scheme://$host/remote.php/dav;
+        # }
+        #
+        # location /.well-known/webfinger {
+        # return 301 $scheme://$host/index.php/.well-known/webfinger;
+        # }
+        #
+        # location /.well-known/nodeinfo {
+        # return 301 $scheme://$host/index.php/.well-known/nodeinfo;
+        # }
+
+  nextcloud:
+    depends_on:
+      - mysql
+      - redis
+      - proxy
+    image: nextcloud:latest
+    container_name: nextcloud
+    restart: always
+    volumes:
+      - /srv/nextcloud:/var/www/html
+    networks:
+      - nextcloud
+    environment:
+      ## Configuracoes necessarias para o proxy reverso
+      - OVERWRITEPROTOCOL=https
+      - NEXTCLOUD_HOSTNAME=cloud.meudominio.com.br
+      - NEXTCLOUD_TRUSTED_DOMAINS=cloud.meudominio.com.br
+      - TRUSTED_PROXIES=cloud.meudominio.com.br
+      - OVERWRITEHOST=cloud.meudominio.com.br
+      ## Configuracoes do REDIS
+      - REDIS_HOST=redis
+      ## Conexao com o Banco de Dados
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=gknd3cbta4
+      ## Define usuario e senha padrao
+      - NEXTCLOUD_ADMIN_USER=admin
+      - NEXTCLOUD_ADMIN_PASSWORD=admin
+      ## Configura envio de emails
+      - SMTP_HOST=smtp.meudominio.com.br
+      - SMTP_PORT=587
+      - SMTP_AUTHTYPE=LOGIN
+      - SMTP_NAME=cloud@meudominio.com.br
+      - SMTP_PASSWORD=senhacontaemail
+      - MAIL_FROM_ADDRESS=cloud
+      - MAIL_DOMAIN=meudominio.com.br
+
+      ## Apos subir todos os coneineres (esperar 30 segundos) 
+      ## e rodar o comando abaixo:
+      ## docker exec --user www-data -it nextcloud php occ config:system:set default_phone_region --value="BR"
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: always
+    networks:
+      - nextcloud
+    expose:
+      - 6379
+
+  mysql:
+    image: mariadb:10.5
+    container_name: mysql
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: always
+    volumes:
+      - /srv/mysql:/var/lib/mysql
+    networks:
+      - nextcloud
+    environment:
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_ROOT_PASSWORD=vc8rb89ajq
+      - MYSQL_PASSWORD=gknd3cbta4
+    expose:
+      - 3306
