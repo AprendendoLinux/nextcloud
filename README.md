@@ -44,7 +44,40 @@ Depois de ter editado o [docker-compose.yml](https://github.com/AprendendoLinux/
 
 <http://cloud.meudominio.com.br:8080>
 
-**Usuario padrao:** admin@example.com<br>
-**Senha padrao:** changeme
+**Usuário padrão:** admin@example.com<br>
+**Senha padrãoo:** changeme
+
+Faça as devidas alterações, adicione o proxy host, adicione o SSL e na guia "Advanced", adicione o seguinte conteúdo:
+
+```
+client_body_buffer_size 512k;
+proxy_read_timeout 86400s;
+client_max_body_size 0;
+
+location /.well-known/carddav {
+return 301 $scheme://$host/remote.php/dav;
+}
+
+location /.well-known/caldav {
+return 301 $scheme://$host/remote.php/dav;
+}
+
+location /.well-known/webfinger {
+return 301 $scheme://$host/index.php/.well-known/webfinger;
+}
+
+location /.well-known/nodeinfo {
+return 301 $scheme://$host/index.php/.well-known/nodeinfo;
+}
+```
+Agora, no Linux, rode o seguinte comando:
+
+`docker exec --user www-data -it nextcloud php occ config:system:set default_phone_region --value="BR"`
+
+Tudo pronto! Basta acessar o servidor agora:
+
+https://cloud.meudominio.com.br
+Usuário: admin
+Senha: admin
 
 Isso é tudo!
