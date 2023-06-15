@@ -32,3 +32,12 @@ github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(
 chmod +x /usr/local/bin/docker-compose
 apt autoremove -y && apt clean && apt clean all
 ```
+**Agora baixe o arquivo:**
+
+`wget https://raw.githubusercontent.com/AprendendoLinux/nextcloud/main/docker-compose.yml`
+
+Depois de ter editado o [docker-compose.yml](https://github.com/AprendendoLinux/nextcloud/blob/main/docker-compose.yml) conforme o seu domínio, rode o comando abaixo:
+
+`docker-compose -f /root/docker-compose.yml up -d`
+
+Isso é tudo!
