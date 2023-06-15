@@ -42,8 +42,7 @@ Depois de ter editado o [docker-compose.yml](https://github.com/AprendendoLinux/
 
 **Agora acesse o endereço, conforme as explicações no arquivo:**
 
-<http://cloud.meudominio.com.br:8080>
-
+http://cloud.meudominio.com.br:8080<br>
 **Usuário padrão:** admin@example.com<br>
 **Senha padrãoo:** changeme
 
@@ -77,7 +76,7 @@ Agora, no Linux, rode o seguinte comando:
 Tudo pronto! Basta acessar o servidor agora:
 
 https://cloud.meudominio.com.br<br>
-Usuário: admin<br>
-Senha: admin
+**Usuário:** admin<br>
+**Senha:** admin
 
 Isso é tudo!
