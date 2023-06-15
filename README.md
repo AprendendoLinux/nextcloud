@@ -43,7 +43,8 @@ Depois de ter editado o [docker-compose.yml](https://github.com/AprendendoLinux/
 **Agora acesse o endereço, conforme as explicações no arquivo:**
 
 <http://cloud.meudominio.com.br:8080>
-***Usuario padrao:** admin@example.com<br>
-***Senha padrao:** changeme
+
+**Usuario padrao:** admin@example.com<br>
+**Senha padrao:** changeme
 
 Isso é tudo!
