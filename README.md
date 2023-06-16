@@ -69,14 +69,19 @@ location /.well-known/nodeinfo {
 return 301 $scheme://$host/index.php/.well-known/nodeinfo;
 }
 ```
-Agora, no Linux, rode o seguinte comando:
+Agora, no Linux, rode os seguintes comandos:
 
-`docker exec --user www-data -it nextcloud php occ config:system:set default_phone_region --value="BR"`
-
+```
+docker exec --user www-data -it nextcloud php occ config:system:set default_phone_region --value="BR"
+echo '*/5 * * * * root docker exec --user www-data nextcloud php /var/www/html/cron.php' >> /etc/crontab
+systemctl restart cron.service
+```
 Tudo pronto! Basta acessar o servidor agora:
 
 https://cloud.meudominio.com.br<br>
 **Usuário:** admin<br>
 **Senha:** admin
+
+Obs.: Clique no avatar do usuário "admin" no canto superior direito, depois clique em "Configurações de administração", no menu a esquerda, clique em "Configurações básicas" e troque as tarefas em segundo plano para "Cron".
 
 Isso é tudo!
