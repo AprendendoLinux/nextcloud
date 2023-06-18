@@ -3,7 +3,7 @@ Subindo servidor NextCloud com Docker Composer
 
 Criei um composer para subir um NextCloud com tudo que é necessário.
 
-[NextCloud com Docker](https://img.youtube.com/vi/kyNfCGEno5M/0.jpg)(https://www.youtube.com/watch?v=kyNfCGEno5M)
+[![Everything Is AWESOME](https://img.youtube.com/vi/StTqXEQ2l-Y/0.jpg)](https://www.youtube.com/watch?v=StTqXEQ2l-Y "Everything Is AWESOME")
 
 **Instale o docker com os comandos abaixo:**
 
