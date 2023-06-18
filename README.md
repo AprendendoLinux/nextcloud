@@ -5,6 +5,9 @@ Criei um composer para subir um NextCloud com tudo que é necessário.
 
 <img src="https://temporario.aprendendolinux.com/pic_docker_hub/nextcloud.png" alt="NextCloud" width="800" title="NextCloud">
 
+[![NextCloud com Docker](https://img.youtube.com/vi/kyNfCGEno5M/0.jpg)](https://www.youtube.com/watch?v=kyNfCGEno5M)
+
+
 **Instale o docker com os comandos abaixo:**
 
 ```
