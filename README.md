@@ -73,6 +73,7 @@ Agora, no Linux, rode os seguintes comandos:
 
 ```
 docker exec --user www-data -it nextcloud php occ config:system:set default_phone_region --value="BR"
+docker exec --user www-data nextcloud php /var/www/html/cron.php
 echo '*/5 * * * * root docker exec --user www-data nextcloud php /var/www/html/cron.php' >> /etc/crontab
 systemctl restart cron.service
 ```
